@@ -186,7 +186,7 @@ textarea{
 .btn{
     border: none;
     cursor: pointer;
-    padding: 14px 22px;
+    padding: 14px 16px;
     border-radius: 14px;
     font-size: 0.95rem;
     font-weight: 600;
@@ -241,8 +241,8 @@ textarea{
     font-size: 0.85rem;
     min-height: 18px;
 }
-
 .filter-bar{
+    margin-bottom: 25px;
     padding: 25px;
 }
 
@@ -256,9 +256,17 @@ textarea{
     display: flex;
     flex-wrap: wrap;
     gap: 18px;
-    align-items: end;
+    align-items: flex-end;
 }
 
+.filter-buttons{
+    display: flex;
+    gap: 10px;
+}
+
+.filter-buttons-group{
+    margin-bottom: 20px;
+}
 .table-wrapper{
     overflow-x: auto;
     padding: 20px;

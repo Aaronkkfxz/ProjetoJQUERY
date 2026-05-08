@@ -1,122 +1,136 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gerenciador de Tarefas</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerenciador de Tarefas</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  </head>
+  <body>
 
-  <div class="page-wrapper">
+    <div class="page-wrapper">
 
-    <header class="app-header">
-      <div class="header-accent"></div>
-      <h1 class="app-title">Task<span>Flow</span></h1>
-      <p class="app-subtitle">Gerenciamento Avançado de Tarefas</p>
-    </header>
+      <header class="app-header">
+        <div class="header-accent"></div>
+        <h1 class="app-title">Task<span>Flow</span></h1>
+        <p class="app-subtitle">Gerenciamento Avançado de Tarefas</p>
+      </header>
 
-    <main class="main-content">
+      <main class="main-content">
 
-      <section class="form-section">
-        <div class="form-card">
-          <div class="form-card-header">
-            <span class="form-card-icon">✦</span>
-            <h2>Nova Tarefa</h2>
+        <section class="form-section">
+          <div class="form-card">
+            <div class="form-card-header">
+              <span class="form-card-icon">✦</span>
+              <h2>Nova Tarefa</h2>
+            </div>
+
+            <form id="form-tarefa" novalidate>
+
+              <div class="field-group">
+                <label for="titulo">Título <span
+                    class="required">*</span></label>
+                <input type="text" id="titulo"
+                  placeholder="Nome da tarefa..." />
+                <span class="error-msg" id="erro-titulo"></span>
+              </div>
+
+              <div class="field-group">
+                <label for="descricao">Descrição</label>
+                <textarea id="descricao" rows="3"
+                  placeholder="Descreva a tarefa..."></textarea>
+              </div>
+
+              <div class="field-row">
+                <div class="field-group">
+                  <label for="prioridade">Prioridade</label>
+                  <select id="prioridade">
+                    <option value="Baixa">Baixa</option>
+                    <option value="Média" selected>Média</option>
+                    <option value="Alta">Alta</option>
+                  </select>
+                </div>
+
+                <div class="field-group">
+                  <label for="data-limite">Data Limite</label>
+                  <input type="date" id="data-limite" />
+                </div>
+
+                <div class="field-group">
+                  <label for="status">Status</label>
+                  <select id="status">
+                    <option value="Pendente" selected>Pendente</option>
+                    <option value="Concluída">Concluída</option>
+                  </select>
+                </div>
+              </div>
+
+              <div id="area-observacao"></div>
+
+              <div class="form-actions">
+                <button type="button" id="btn-observacao" class="btn btn-obs">
+                  <span>+</span> Observação
+                </button>
+                <button type="submit" id="btn-concluir" class="btn btn-primary">
+                  Concluir Tarefa
+                </button>
+              </div>
+
+              <input type="hidden" id="tarefa-id" value />
+
+            </form>
           </div>
+        </section>
 
-          <form id="form-tarefa" novalidate>
+        <section class="list-section" id="secao-lista">
 
-            <div class="field-group">
-              <label for="titulo">Título <span class="required">*</span></label>
-              <input type="text" id="titulo" placeholder="Nome da tarefa..." />
-              <span class="error-msg" id="erro-titulo"></span>
-            </div>
-
-            <div class="field-group">
-              <label for="descricao">Descrição</label>
-              <textarea id="descricao" rows="3" placeholder="Descreva a tarefa..."></textarea>
-            </div>
-
-            <div class="field-row">
-              <div class="field-group">
-                <label for="prioridade">Prioridade</label>
-                <select id="prioridade">
-                  <option value="Baixa">Baixa</option>
-                  <option value="Média" selected>Média</option>
-                  <option value="Alta">Alta</option>
-                </select>
-              </div>
-
-              <div class="field-group">
-                <label for="data-limite">Data Limite</label>
-                <input type="date" id="data-limite" />
-              </div>
-
-              <div class="field-group">
-                <label for="status">Status</label>
-                <select id="status">
-                  <option value="Pendente" selected>Pendente</option>
-                  <option value="Concluída">Concluída</option>
-                </select>
-              </div>
-            </div>
-
-            <div id="area-observacao"></div>
-
-            <div class="form-actions">
-              <button type="button" id="btn-observacao" class="btn btn-obs">
-                <span>+</span> Observação
-              </button>
-              <button type="submit" id="btn-concluir" class="btn btn-primary">
-                Concluir Tarefa
-              </button>
-            </div>
-
-            <input type="hidden" id="tarefa-id" value="" />
-
-          </form>
-        </div>
-      </section>
-
-      <section class="list-section" id="secao-lista">
-
-        <div id="container-tabela">
+          <div id="container-tabela">
             <div class="filter-bar" id="barra-filtros">
-          <h3 class="filter-title">✦ Filtros</h3>
-          <div class="filter-controls">
-            <div class="field-group">
-              <label for="filtro-status">Status</label>
-              <select id="filtro-status">
-                <option value="">Todos</option>
-                <option value="Pendente">Pendente</option>
-                <option value="Concluída">Concluída</option>
-              </select>
+              <h3 class="filter-title">✦ Filtros</h3>
+              <div class="filter-controls">
+                <div class="field-group">
+                  <label for="filtro-status">Status</label>
+                  <select id="filtro-status">
+                    <option value>Todos</option>
+                    <option value="Pendente">Pendente</option>
+                    <option value="Concluída">Concluída</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label for="filtro-prioridade">Prioridade</label>
+                  <select id="filtro-prioridade">
+                    <option value>Todas</option>
+                    <option value="Baixa">Baixa</option>
+                    <option value="Média">Média</option>
+                    <option value="Alta">Alta</option>
+                  </select>
+                </div>
+                <div class="field-group filter-buttons-group">
+                  <label>Ações</label>
+
+                  <div class="filter-buttons">
+                    <button id="btn-filtrar" class="btn btn-filter">
+                      Filtrar
+                    </button>
+
+                    <button id="btn-limpar-filtro" class="btn btn-ghost">
+                      Limpar
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="field-group">
-              <label for="filtro-prioridade">Prioridade</label>
-              <select id="filtro-prioridade">
-                <option value="">Todas</option>
-                <option value="Baixa">Baixa</option>
-                <option value="Média">Média</option>
-                <option value="Alta">Alta</option>
-              </select>
-            </div>
-            <button id="btn-filtrar" class="btn btn-filter">Filtrar</button>
-            <button id="btn-limpar-filtro" class="btn btn-ghost">Limpar</button>
           </div>
-        </div>
-        </div>
 
-      </section>
+        </section>
 
-    </main>
+      </main>
 
-  </div>
+    </div>
 
-  <script src="script.js"></script>
-  <script src="jquery.js"></script>
+    <script src="script.js"></script>
+    <script src="jquery.js"></script>
 
-</body>
+  </body>
 </html>
