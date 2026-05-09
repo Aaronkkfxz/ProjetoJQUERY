@@ -16,7 +16,26 @@ $('#form-tarefa').on('submit', function(e){
 
     this.reset();
 });
+$('btn-observacao').on('click', function(){
+    if($('#observacao').lenght === 0){
+        $('#area-observacao').append(`
+            <div class="field-group" id="grupo-observacao">
+                <label for="observacao">Observação</label>
+                <textarea id="observacao" rows="3" placeholder="Digite a observação..."></textarea>
+            </div>
+        `);
+    }
+    else{
+        $('grupo-observacao').remove();
+    }
 });
+$(document).on('click', '.btn-delete', function(){
+    let id = $(this).data('id');
+
+    console.log(id);
+});
+});
+
 function RenderizaTabela(){
     if($('#tabela-tarefas').length === 0){
 
@@ -33,7 +52,9 @@ function RenderizaTabela(){
                             <th>Prioridade</th>
                             <th>Data</th>
                             <th>Status</th>
+                            <th>Observações</th>
                             <th>Ações</th>
+                            
                         </tr>
                     </thead>
 
@@ -66,9 +87,11 @@ function RenderizaTabela(){
 
                 <td>${item.status}</td>
 
+                <td>${item.observacao}</td>
+
                 <td class="action-buttons">
-                    <button class="btn-edit">Editar</button>
-                    <button class="btn-delete">Excluir</button>
+                    <button class="btn-edit" data-id="${item.Id}">Editar</button>
+                    <button class="btn-delete data-id="${item.Id}"">Excluir</button>
                 </td>
 
             </tr>

@@ -6,6 +6,11 @@ function CriaTarefa(){
     var prioridadeId = document.getElementById('prioridade').value;
     var datalimiteId = document.getElementById('data-limite').value;
     var statusId = document.getElementById('status').value;
+    var observaoId = '';
+
+    if(document.getElementById('observacao')){
+        observacaoId = document.getElementById('observacao').value;
+    }
 
     if(tituloId === ''){
         return null;
@@ -16,8 +21,15 @@ function CriaTarefa(){
         descricao: descricaoId,
         prioridade: prioridadeId,
         dataLimite: datalimiteId,
-        status: statusId
+        status: statusId,
+        observacao : observacaoId
     }
     tarefa.push(novaTarefa);
     return novaTarefa;
+}
+
+function ExcluirTarefa(id){
+    tarefa = tarefa.filter(function(item){
+        return item.id = id;
+    });
 }
