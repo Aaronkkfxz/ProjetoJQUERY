@@ -15,9 +15,10 @@ $('#form-tarefa').on('submit', function(e){
     RenderizaTabela();
 
     this.reset();
+    $('#grupo-observacao').remove();
 });
-$('btn-observacao').on('click', function(){
-    if($('#observacao').lenght === 0){
+$('#btn-observacao').on('click', function(){
+    if($('#observacao').length === 0){
         $('#area-observacao').append(`
             <div class="field-group" id="grupo-observacao">
                 <label for="observacao">Observação</label>
@@ -26,12 +27,13 @@ $('btn-observacao').on('click', function(){
         `);
     }
     else{
-        $('grupo-observacao').remove();
+        $('#grupo-observacao').remove();
     }
 });
 $(document).on('click', '.btn-delete', function(){
     let id = $(this).data('id');
-
+    ExcluirTarefa(id);
+    RenderizaTabela();
     console.log(id);
 });
 });
@@ -91,7 +93,7 @@ function RenderizaTabela(){
 
                 <td class="action-buttons">
                     <button class="btn-edit" data-id="${item.Id}">Editar</button>
-                    <button class="btn-delete data-id="${item.Id}"">Excluir</button>
+                    <button class="btn-delete" data-id="${item.Id}">Excluir</button>
                 </td>
 
             </tr>

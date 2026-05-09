@@ -6,7 +6,7 @@ function CriaTarefa(){
     var prioridadeId = document.getElementById('prioridade').value;
     var datalimiteId = document.getElementById('data-limite').value;
     var statusId = document.getElementById('status').value;
-    var observaoId = '';
+    var observacaoId = '';
 
     if(document.getElementById('observacao')){
         observacaoId = document.getElementById('observacao').value;
@@ -30,6 +30,6 @@ function CriaTarefa(){
 
 function ExcluirTarefa(id){
     tarefa = tarefa.filter(function(item){
-        return item.id = id;
+        return item.Id != id;
     });
 }
