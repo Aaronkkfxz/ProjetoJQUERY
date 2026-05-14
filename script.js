@@ -33,3 +33,21 @@ function ExcluirTarefa(id){
         return item.Id != id;
     });
 }
+function AtualizarTarefa(id, dadosAtualizados){
+     tarefa = tarefa.map(function(item){
+
+        if(item.Id == id){
+
+            item.titulo = dadosAtualizados.titulo;
+            item.descricao = dadosAtualizados.descricao;
+            item.prioridade = dadosAtualizados.prioridade;
+            item.dataLimite = dadosAtualizados.dataLimite;
+            item.status = dadosAtualizados.status;
+            item.observacao = dadosAtualizados.observacao;
+
+        }
+
+        return item;
+
+    });
+}
