@@ -1,6 +1,6 @@
 let tarefa = [];
 
-function CriaTarefa(){
+function criaTarefa(){
     var tituloId = document.getElementById('titulo').value;
     var descricaoId = document.getElementById('descricao').value;
     var prioridadeId = document.getElementById('prioridade').value;
@@ -25,15 +25,17 @@ function CriaTarefa(){
         observacao : observacaoId
     }
     tarefa.push(novaTarefa);
+    salvarTarefas();
     return novaTarefa;
 }
 
-function ExcluirTarefa(id){
+function excluirTarefa(id){
     tarefa = tarefa.filter(function(item){
         return item.Id != id;
     });
+    salvarTarefas();
 }
-function AtualizarTarefa(id, dadosAtualizados){
+function atualizarTarefa(id, dadosAtualizados){
      tarefa = tarefa.map(function(item){
 
         if(item.Id == id){
@@ -46,12 +48,13 @@ function AtualizarTarefa(id, dadosAtualizados){
             item.observacao = dadosAtualizados.observacao;
 
         }
-
+        
         return item;
 
     });
+    salvarTarefas();
 }
-function FiltrarTarefas(status, prioridade){
+function filtrarTarefas(status, prioridade){
 
     return tarefa.filter(function(item){
 
@@ -73,5 +76,21 @@ function FiltrarTarefas(status, prioridade){
         return filtroStatus && filtroPrioridade;
 
     });
+
+}
+function salvarTarefas(){
+
+    localStorage.setItem('tarefas', JSON.stringify(tarefa));
+
+}
+function carregarTarefas(){
+
+    let tarefasSalvas = localStorage.getItem('tarefas');
+
+    if(tarefasSalvas){
+
+        tarefa = JSON.parse(tarefasSalvas);
+
+    }
 
 }
