@@ -1,4 +1,14 @@
 $(document).ready(function(){
+$(document).ready(function(){
+
+    $('#titulo').on('input', function(){
+
+        $('#erro-titulo').text('');
+
+    });
+
+});
+
 $('#form-tarefa').on('submit', function(e){
     e.preventDefault();
 
@@ -40,6 +50,7 @@ $('#form-tarefa').on('submit', function(e){
     $('#tarefa-id').val('');
     $('#grupo-observacao').remove();
 });
+
 $('#btn-observacao').on('click', function(){
     if($('#observacao').length === 0){
         $('#area-observacao').append(`
@@ -53,12 +64,32 @@ $('#btn-observacao').on('click', function(){
         $('#grupo-observacao').remove();
     }
 });
+
 $(document).on('click', '.btn-delete', function(){
     let id = $(this).data('id');
     ExcluirTarefa(id);
     RenderizaTabela();
-    console.log(id);
 });
+
+$('#btn-filtrar').on('click', function(){
+
+    let status = $('#filtro-status').val();
+    let prioridade = $('#filtro-prioridade').val();
+
+    let tarefasFiltradas = FiltrarTarefas(status, prioridade);
+
+    RenderizaTabela(tarefasFiltradas);
+
+});
+$('#btn-limpar-filtro').on('click', function(){
+
+    $('#filtro-status').val('');
+    $('#filtro-prioridade').val('');
+
+    RenderizaTabela();
+
+});
+
 $(document).on('click', '.btn-edit', function(){
 
     let id = $(this).data('id');
@@ -102,16 +133,18 @@ $(document).on('click', '.btn-edit', function(){
 
     }
 });
-$(document).on('dblclick', 'tr', function(){
+
+$(document).on('dblclick', '#tabela-tarefas tbody tr', function(){
 
     let id = $(this).data('id');
 
     $('.btn-edit[data-id="' + id + '"]').click();
 
 });
+
 });
 
-function RenderizaTabela(){
+function RenderizaTabela(lista = tarefa){
     if($('#tabela-tarefas').length === 0){
 
         $('#container-tabela').append(`
@@ -146,7 +179,7 @@ function RenderizaTabela(){
 
     $('#tabela-tarefas tbody').html('');
 
-    tarefa.forEach(function(item){
+    lista.forEach(function(item){
 
         $('#tabela-tarefas tbody').append(`
         

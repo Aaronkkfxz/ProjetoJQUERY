@@ -51,3 +51,27 @@ function AtualizarTarefa(id, dadosAtualizados){
 
     });
 }
+function FiltrarTarefas(status, prioridade){
+
+    return tarefa.filter(function(item){
+
+        let filtroStatus = true;
+        let filtroPrioridade = true;
+
+        if(status !== ''){
+
+            filtroStatus = item.status == status;
+
+        }
+
+        if(prioridade !== ''){
+
+            filtroPrioridade = item.prioridade == prioridade;
+
+        }
+
+        return filtroStatus && filtroPrioridade;
+
+    });
+
+}
