@@ -9,7 +9,7 @@ $(document).ready(function () {
   $("#form-tarefa").on("submit", function (e) {
     e.preventDefault();
 
-    $('#erro-titulo').text('');
+    $("#erro-titulo").text("");
     let idEdicao = $("#tarefa-id").val();
 
     if (idEdicao) {
@@ -36,7 +36,7 @@ $(document).ready(function () {
     renderizaTabela();
 
     this.reset();
-    $('#btn-concluir').text('Concluir Tarefa');
+    $("#btn-concluir").text("Concluir Tarefa");
     $("#tarefa-id").val("");
     $("#grupo-observacao").remove();
   });
@@ -91,7 +91,7 @@ $(document).ready(function () {
 
     $("#tarefa-id").val(tarefaSelecionada.Id);
 
-    $('#btn-concluir').text('Atualizar Tarefa');
+    $("#btn-concluir").text("Atualizar Tarefa");
 
     if (tarefaSelecionada.observacao) {
       if ($("#observacao").length === 0) {
